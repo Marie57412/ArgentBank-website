@@ -1,6 +1,5 @@
 import React from "react";
-import Form from "../form/Form";
-
+import Form from "../form/Form"
 function Loginpage() {
     return (
       <div className="bg-dark ">
