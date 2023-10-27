@@ -19,6 +19,7 @@
     "mongo": "^0.1.0",
     "mongoose": "^5.9.21",
     "react": "^18.2.0",
+    "react-router": "^6.17.0",
     "swagger-ui-express": "^4.1.4",
     "yamljs": "^0.3.0"
   },
