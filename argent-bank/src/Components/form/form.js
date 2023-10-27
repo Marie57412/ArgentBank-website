@@ -1,6 +1,6 @@
 import React from "react";
 
-function formLogin(){
+function Form(){
     return(
         <main className="main bg-dark">
         <section className="sign-in-content">
@@ -8,15 +8,15 @@ function formLogin(){
           <h1>Sign In</h1>
           <form>
             <div className="input-wrapper">
-              <label for="username">Username</label>
+              <label htmlFor="username">Username</label>
               <input type="text" id="username" />
             </div>
             <div className="input-wrapper">
-              <label for="password">Password </label>
+              <label htmlFor="password">Password </label>
               <input type="password" id="password" />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" /><label for="remember-me"
+              <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
                />
             </div>
            
@@ -30,4 +30,4 @@ function formLogin(){
     )
 }
 
-export default formLogin
+export default Form
