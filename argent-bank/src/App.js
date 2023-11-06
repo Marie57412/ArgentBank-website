@@ -5,6 +5,7 @@ import Footer from './Components/Footer';
 import Accueil from './Components/accueil/Accueil';
 import './App.css';
 import Loginpage from './Components/login/Login';
+import Userpage from './Components/Users/User'
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
       <Header />
       <Routes>
       <Route path="/" element={<Accueil />} />
-        <Route path="/login" element={<Loginpage/>}></Route>
+        <Route path="/login" element={<Loginpage/>}/>
+        <Route path='/profile' element={<Userpage/>}/>
       </Routes>
      <Footer />
     </div>
