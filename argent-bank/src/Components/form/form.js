@@ -1,6 +1,8 @@
 import React from "react";
+import Api from "../../Api/Api";
 
 function Form(){
+  console.log(Api)
     return(
         <main className="main bg-dark">
         <section className="sign-in-content">
@@ -20,7 +22,7 @@ function Form(){
                />
             </div>
            
-          
+             
             
              <button className="sign-in-button">Sign In</button> 
           
