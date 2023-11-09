@@ -1,4 +1,5 @@
 import React, {useState}from "react";
+import { useNavigate } from "react-router-dom";
 import {loginUser} from "../../Api/Api";
 
 function Form(){
@@ -18,6 +19,7 @@ function Form(){
     try {
       const result = await loginUser(userData);
       console.log('Réponse de l\'API de connexion :', result);
+      navigate("/profile");
     } catch (error) {
       console.error('Erreur lors de la connexion :', error);
     }
