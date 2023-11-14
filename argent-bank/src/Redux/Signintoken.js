@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit'
+ import { createSlice } from '@reduxjs/toolkit'
 
 
-const SigninSlice = createSlice({
+const Signintoken = createSlice({
     name: 'Signin',
     initialState: {
         token: "",
@@ -15,6 +15,6 @@ const SigninSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setToken } = SigninSlice.actions;
+export const { setToken } = Signintoken.actions;
 
-export default SigninSlice.reducer
+export default Signintoken.reducer

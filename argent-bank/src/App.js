@@ -6,10 +6,12 @@ import Accueil from './Components/accueil/Accueil';
 import './App.css';
 import Loginpage from './Components/login/Login';
 import User from './Components/Users/User'
-
+import { Provider } from 'react-redux';
+import { store } from '../src/Redux/Store';
 
 function App() {
   return (
+    <Provider store={store}>
     <div className="App">
       <Header />
       <Routes>
@@ -19,6 +21,7 @@ function App() {
       </Routes>
      <Footer />
     </div>
+    </Provider>
   );
 }
 

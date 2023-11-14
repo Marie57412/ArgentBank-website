@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {loginUser} from "../../Api/Api";
 
 function Form(){
- 
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
