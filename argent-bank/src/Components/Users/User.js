@@ -9,8 +9,8 @@ function User() {
   const [userName, setUserName] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newUserName, setNewUserName] = useState("");
-  const [newFirstName, setNewFirstName] = useState(""); // Ajout de l'état newFirstName
-  const [newLastName, setNewLastName] = useState(""); // Ajout de l'état newLastName
+  const [newFirstName, setNewFirstName] = useState(""); 
+  const [newLastName, setNewLastName] = useState(""); 
   const storedToken = localStorage.getItem('userToken');
   const token = storedToken;
 
@@ -34,8 +34,8 @@ function User() {
     try {
       const updatedUserData = {
         userName: newUserName,
-        firstName: newFirstName, // Utilisation de newFirstName dans l'objet
-        lastName: newLastName,   // Utilisation de newLastName dans l'objet
+        firstName: newFirstName, 
+        lastName: newLastName,   
       };
 
       const updatedResult = await UpdateUserProfile(updatedUserData, token);
