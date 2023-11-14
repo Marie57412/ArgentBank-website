@@ -2,10 +2,13 @@ import React from "react";
 import Chat from "../../assets/icon-chat.webp";
 import Money from "../../assets/icon-money.webp";
 import Security from "../../assets/icon-security.webp";
+import Navigation from "../header/Navigation";
 
 function Accueil (){
     return(
-        <main>
+      <>
+           <Navigation/>
+         <main>
       <div className="hero">
         <section className="hero-content">
           <h2 className="sr-only">Promoted Content</h2>
@@ -50,6 +53,7 @@ function Accueil (){
         </div>
       </section>
     </main>
+    </>
     )
 }
 

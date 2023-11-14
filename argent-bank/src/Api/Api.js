@@ -1,96 +1,74 @@
+// API base URL
+const baseUrl = 'http://localhost:3001/api/v1/';
 
-const LoginUrl = 'http://localhost:3001/api/v1/user/login';
-
-
-export async function loginUser(userData) {
-  try {
-    const response = await fetch(LoginUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Réponse non valide du serveur');
-    }
-
-    return response.json();
-  } catch (error) {
-    throw new Error('Erreur lors de la connexion : ' + error.message);
-  }
+// POST
+async function postAccessToToken(email, password) {
+  let user = {
+    email: email,
+    password: password,
+  };
+  let response = await fetch(`${baseUrl}user/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify(user),
+  });
+  return response;
 }
 
-const ProfileUrl = 'http://localhost:3001/api/v1/user/profile';
+export async function postGetProfile(token) {
+  let response = await fetch(`${baseUrl}user/profile`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+  });
 
-export async function ProfilUser(token) {
-  try {
-    console.log('Token:', token);
-    const response = await fetch(ProfileUrl, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Réponse non valide du serveur');
-    }
-
-    return response.json();
-  } catch (error) {
-    throw new Error('Erreur lors de la connexion : ' + error.message);
-  }
-}
-// fonction uptade le profil
-
-export async function UpdateUserProfile(updatedUserData) {
-  try {
-    const token = localStorage.getItem('userToken'); 
-    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(updatedUserData),
-    });
-
-    if (!response.ok) {
-      throw new Error('Réponse non valide du serveur');
-    }
-
-    return response.json();
-  } catch (error) {
-    throw new Error('Erreur lors de la connexion : ' + error.message);
-  }
+  return response;
 }
 
-//fonction new user
+// GET
+export async function getToken(email, password) {
+  const response = await postAccessToToken(email, password);
+  const responseBody = await response.json();
+  const token = responseBody.body.token;
+  return token;
+}
 
-export async function CreateUserProfile(newUserData) {
-  try { 
-    const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        
-      },
-      body: JSON.stringify(newUserData),
-    });
+export async function getUserName(token) {
+  const response = await postGetProfile(token);
+  const responseBody = await response.json();
+  const userName = responseBody.body.userName;
+  return userName;
+}
+export async function getFirstName(token) {
+  const response = await postGetProfile(token);
+  const responseBody = await response.json();
+  const firstName = responseBody.body.firstName;
+  return firstName;
+}
+export async function getLastName(token) {
+  const response = await postGetProfile(token);
+  const responseBody = await response.json();
+  const lastName = responseBody.body.lastName;
+  return lastName;
+}
 
-    if (!response.ok) {
-      throw new Error('Réponse non valide du serveur');
-    }
+// PUT
+export async function putChangeUserName(token, newUserName) {
+  let userName = {
+    userName: newUserName,
+  };
 
-    return response.json();
-  } catch (error) {
-    throw new Error('Erreur lors de la connexion : ' + error.message);
-  }
+  let response = await fetch(`${baseUrl}user/profile`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+      Authorization: 'Bearer ' + token,
+    },
+    body: JSON.stringify(userName),
+  });
+  return response;
 }
