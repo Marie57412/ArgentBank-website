@@ -1,7 +1,7 @@
 import React from "react";
-import Chat from "../../assets/icon-chat.webp";
-import Money from "../../assets/icon-money.webp";
-import Security from "../../assets/icon-security.webp";
+import Chat from "../assets/icon-chat.webp";
+import Money from "../assets/icon-money.webp";
+import Security from "../assets/icon-security.webp";
 import Navigation from "../header/Navigation";
 
 function Accueil (){

@@ -1,4 +1,4 @@
-import NOTFOUND from "../../assets/404.png";
+import NOTFOUND from "../assets/404.png";
 import { Link } from "react-router-dom";
 function ErrorPage() {
   return (
