@@ -1,5 +1,6 @@
 import Navigation from '../../Components/header/Navigation';
 import SignIn from '../../Components/sign-in/SignIn';
+import USER_ICON from '../assets/circle-user-solid.svg';
 
 
 function SignInPage() {
@@ -9,6 +10,7 @@ function SignInPage() {
       <main className="main bg-dark">
         <section className="sign-in-content">
           <SignIn
+            icon={USER_ICON}
             alt="icone"
             title="Sign In"
             form_account="Username"

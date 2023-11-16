@@ -64,7 +64,6 @@ function SignIn({
     }
   }
 
-  // JSX
   return (
     <>
       <i className="fa fa-email-circle sign-in-icon">

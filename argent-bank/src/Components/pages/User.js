@@ -1,103 +1,72 @@
-// Bibliothèques
+import NavigationHeader from '../header/NavigationHeader';
+import Account from '../account/Account';
+import EditUserInfo from '../edit-user-info/EditUserInfo';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveUserName } from '../../Redux/redux';
 
-// Services
-import {
-  getFirstName,
-  getLastName,
-  getToken,
-  getUserName,
-} from '../../Api/Api';
-import signInError from '../errors/signInError';
-
-// Redux
-import {
-  saveFirstName,
-  saveLastName,
-  saveToken,
-  saveUserName,
-} from '../../Redux/redux';
-
-function SignIn({
-  icon,
-  alt,
-  title,
-  form_account,
-  form_password,
-  tick_text,
-  text_button,
-}) {
-  const navigate = useNavigate();
+function User() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    localStorage.clear();
+    const userNameFromStorage = localStorage.getItem('userName');
+    if (userNameFromStorage) {
+      dispatch(saveUserName(userNameFromStorage));
+    }
   }, []);
 
-  // Handlers
-  async function handleClick(e) {
-    e.preventDefault();
-    try {
-      const token = await getToken(email, password);
-      const userName = await getUserName(token);
-      const firstName = await getFirstName(token);
-      const lastName = await getLastName(token);
+  const [hideForm, setHideForm] = useState(false);
+  const userName = useSelector((state) => state.user.userName);
+  const firstName = localStorage.getItem('firstName');
+  const lastName = localStorage.getItem('lastName');
 
-      dispatch(saveToken(token));
-      dispatch(saveUserName(userName));
-      dispatch(saveFirstName(firstName));
-      dispatch(saveLastName(lastName));
-
-      localStorage.setItem('token', token);
-      localStorage.setItem('userName', userName);
-      localStorage.setItem('firstName', firstName);
-      localStorage.setItem('lastName', lastName);
-
-      navigate(`/user/${userName}`);
-    } catch (error) {
-      signInError();
-      console.log('Email ou mot de passe incorrect', error);
-    }
-  }
-
-  // JSX
   return (
     <>
-      <i className="fa fa-email-circle sign-in-icon">
-        <img src={icon} alt={alt} />
-      </i>
-      <h1>{title}</h1>
-      <form>
-        <div className="input-wrapper">
-          <label htmlFor="emailname">{form_account}</label>
-          <input
-            type="text"
-            id="emailname"
-            onChange={(e) => setEmail(e.target.value)}
+      <NavigationHeader name={userName} />
+      <main className="main bg-dark">
+        <div className="header">
+          <h1>
+            Welcome back
+            <br /> {userName}!
+          </h1>
+          <button
+            className="edit-button"
+            onClick={() => setHideForm(!hideForm)}
+          >
+            Edit Name
+          </button>
+          <EditUserInfo
+            form_title="Edit info"
+            save_button="save"
+            cancel_button="cancel"
+            display={hideForm}
+            userNameProps={userName}
+            firstName={firstName}
+            lastName={lastName}
           />
         </div>
-        <div className="input-wrapper">
-          <label htmlFor="password">{form_password}</label>
-          <input
-            type="password"
-            id="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div className="input-remember">
-          <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">{tick_text}</label>
-        </div>
-        <button type="submit" className="sign-in-button" onClick={handleClick}>
-          {text_button}
-        </button>
-      </form>
+        <h2 className="sr-only">Accounts</h2>
+        <Account
+          title="Argent Bank Checking (x8349)"
+          amount="$2,082.79"
+          description="Available Balance"
+          button="View transactions"
+        />
+        <Account
+          title="Argent Bank Checking (x8349)"
+          amount="$2,082.79"
+          description="Available Balance"
+          button="View transactions"
+        />
+        <Account
+          title="Argent Bank Checking (x8349)"
+          amount="$2,082.79"
+          description="Available Balance"
+          button="View transactions"
+        />
+      </main>
     </>
   );
 }
 
-export default SignIn;
+export default User;

@@ -1,4 +1,4 @@
-import LOGO from '../../assets/argentBankLogo.webp';
+import LOGO from '../assets/argentBankLogo.webp';
 import { Link } from 'react-router-dom';
 // Redux
 import { useDispatch } from 'react-redux';
