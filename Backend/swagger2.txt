@@ -1,0 +1,194 @@
+swagger: "2.0"
+info:
+  version: "2.0.0"
+  title: "ArgentBank API"
+
+host: "localhost:3001"
+basePath: "/api/v2"
+schemes:
+  - "http"
+
+paths:
+
+  /user/login:
+    post:
+      summary: "Authentifie un utilisateur et retourne un token"
+      parameters:
+        - name: "user"
+          in: "body"
+          description: "Email et mot de passe de l'utilisateur"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+              password:
+                type: "string"
+      responses:
+        200:
+          description: "Réponse réussie, contient le token"
+
+  /user/profile:
+    post:
+      summary: "Obtient les informations du profil de l'utilisateur"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token d'authentification"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Réponse réussie, contient les informations du profil"
+    put:
+      summary: "Modifie le nom d'utilisateur"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token d'authentification"
+          required: true
+          type: "string"
+        - name: "user"
+          in: "body"
+          description: "Nouveau nom d'utilisateur"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              userName:
+                type: "string"
+      responses:
+        200:
+          description: "Réponse réussie, le nom d'utilisateur a été modifié"
+
+  /accounts:
+    get:
+      summary: "Récupère tous les comptes de l'utilisateur connecté"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token d'authentification"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Réponse réussie, liste des comptes de l'utilisateur"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Account"
+
+  /accounts/{accountId}/transactions:
+    get:
+      summary: "Récupère les transactions d'un compte spécifique"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token d'authentification"
+          required: true
+          type: "string"
+        - name: "accountId"
+          in: "path"
+          description: "ID du compte pour récupérer les transactions"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Réponse réussie, liste des transactions pour le compte"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Transaction"
+
+  /transactions/{transactionId}:
+    get:
+      summary: "Affiche les détails d'une transaction spécifique"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token d'authentification"
+          required: true
+          type: "string"
+        - name: "transactionId"
+          in: "path"
+          description: "ID de la transaction à afficher"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Réponse réussie, détails de la transaction"
+          schema:
+            $ref: "#/definitions/TransactionDetail"
+
+    put:
+      summary: "Met à jour la catégorie et la note d'une transaction spécifique"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          description: "Token d'authentification"
+          required: true
+          type: "string"
+        - name: "transactionId"
+          in: "path"
+          description: "ID de la transaction à mettre à jour"
+          required: true
+          type: "string"
+        - name: "transactionUpdate"
+          in: "body"
+          description: "Mise à jour de la catégorie et de la note"
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      responses:
+        200:
+          description: "Réponse réussie, la transaction a été mise à jour"
+
+definitions:
+  Account:
+    type: "object"
+    properties:
+      accountId:
+        type: "string"
+      title:
+        type: "string"
+      amount:
+        type: "number"
+      description:
+        type: "string"
+      button:
+        type: "string"
+
+  Transaction:
+    type: "object"
+    properties:
+      transactionId:
+        type: "string"
+      date:
+        type: "string"
+      description:
+        type: "string"
+      amount:
+        type: "number"
+      balance:
+        type: "number"
+
+  TransactionDetail:
+    type: "object"
+    properties:
+      transactionId:
+        type: "string"
+      transactionType:
+        type: "string"
+      category:
+        type: "string"
+      note:
+        type: "string"
+
+  TransactionUpdate:
+    type: "object"
+    properties:
+      category:
+        type: "string"
+      note:
+        type: "string"
