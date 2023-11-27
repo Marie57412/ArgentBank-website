@@ -8,18 +8,24 @@ import { saveUserName } from '../../Redux/redux';
 function User() {
   const dispatch = useDispatch();
 
+  // Effet utilisé pour récupérer le nom d'utilisateur depuis le stockage local
   useEffect(() => {
     const userNameFromStorage = localStorage.getItem('userName');
     if (userNameFromStorage) {
+      // Enregistre le nom d'utilisateur récupéré dans le Redux store
       dispatch(saveUserName(userNameFromStorage));
     }
   }, []);
 
+  // État pour gérer l'affichage du formulaire de modification des informations utilisateur
   const [hideForm, setHideForm] = useState(false);
+
+  // Sélection du nom d'utilisateur depuis le Redux store
   const userName = useSelector((state) => state.user.userName);
+
+  // Récupération des prénom et nom depuis le stockage local
   const firstName = localStorage.getItem('firstName');
   const lastName = localStorage.getItem('lastName');
-
   return (
     <>
       <NavigationHeader name={userName} />
