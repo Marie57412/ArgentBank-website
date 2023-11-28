@@ -1,24 +1,27 @@
-import NavigationHeader from '../../Components/header/NavigationHeader';
-import Account from '../../Components/account/Account';
-import EditUserInfo from '../edit-user-info/EditUserInfo';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveUserName } from '../../Redux/redux';
-
-function User() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const userNameFromStorage = localStorage.getItem('userName');
-    if (userNameFromStorage) {
-      dispatch(saveUserName(userNameFromStorage));
-    }
-  }, []);
-
-  const [hideForm, setHideForm] = useState(false);
-  const userName = useSelector((state) => state.user.userName);
-  const firstName = localStorage.getItem('firstName');
-  const lastName = localStorage.getItem('lastName');
+  import NavigationHeader from '../../Components/header/NavigationHeader'; // Importe le composant de l'en-tête de navigation
+  import Account from '../../Components/account/Account'; // Importe le composant de compte
+  import EditUserInfo from '../edit-user-info/EditUserInfo'; // Importe le composant pour éditer les informations utilisateur
+  import { useEffect, useState } from 'react'; // Importe les hooks useEffect et useState de React
+  import { useDispatch, useSelector } from 'react-redux'; // Importe les hooks useDispatch et useSelector de React Redux
+  import { saveUserName } from '../../Redux/redux'; // Importe l'action saveUserName du Redux
+  
+  function User() {
+    const dispatch = useDispatch(); // Initialise useDispatch pour envoyer des actions au store Redux
+  
+    // Utilise useEffect pour charger le nom d'utilisateur depuis le stockage local lors du chargement initial
+    useEffect(() => {
+      const userNameFromStorage = localStorage.getItem('userName'); // Récupère le nom d'utilisateur depuis le stockage local
+      if (userNameFromStorage) {
+        dispatch(saveUserName(userNameFromStorage)); // Envoie le nom d'utilisateur récupéré au store Redux
+      }
+    }, []);
+  
+    const [hideForm, setHideForm] = useState(false); // Initialise un état pour masquer ou afficher un formulaire
+    const userName = useSelector((state) => state.user.userName); // Récupère le nom d'utilisateur depuis le store Redux
+    const firstName = localStorage.getItem('firstName'); // Récupère le prénom depuis le stockage local
+    const lastName = localStorage.getItem('lastName'); // Récupère le nom depuis le stockage local
+  
+  
 
   return (
     <>
