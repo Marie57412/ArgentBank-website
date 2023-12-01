@@ -1,13 +1,13 @@
-// API base URL
+
 const baseUrl = 'http://localhost:3001/api/v1/';
 
-// POST - Accès au token via l'email et le mot de passe
+
 async function postAccessToToken(email, password) {
   let user = {
     email: email,
     password: password,
   };
-  // Envoie une requête POST pour obtenir le token d'authentification
+  
   let response = await fetch(`${baseUrl}user/login`, {
     method: 'POST',
     headers: {
@@ -18,9 +18,9 @@ async function postAccessToToken(email, password) {
   return response;
 }
 
-// POST - Récupération du profil utilisateur avec le token
+
 export async function postGetProfile(token) {
-  // Envoie une requête POST pour récupérer les détails du profil utilisateur
+  
   let response = await fetch(`${baseUrl}user/profile`, {
     method: 'POST',
     headers: {
@@ -32,7 +32,7 @@ export async function postGetProfile(token) {
   return response;
 }
 
-// GET - Obtention du token d'authentification
+
 export async function getToken(email, password) {
   const response = await postAccessToToken(email, password);
   const responseBody = await response.json();
@@ -40,7 +40,7 @@ export async function getToken(email, password) {
   return token;
 }
 
-// GET - Obtention du nom d'utilisateur avec le token
+
 export async function getUserName(token) {
   const response = await postGetProfile(token);
   const responseBody = await response.json();
@@ -48,7 +48,7 @@ export async function getUserName(token) {
   return userName;
 }
 
-// GET - Obtention du prénom avec le token
+
 export async function getFirstName(token) {
   const response = await postGetProfile(token);
   const responseBody = await response.json();
@@ -56,7 +56,6 @@ export async function getFirstName(token) {
   return firstName;
 }
 
-// GET - Obtention du nom de famille avec le token
 export async function getLastName(token) {
   const response = await postGetProfile(token);
   const responseBody = await response.json();
@@ -64,12 +63,12 @@ export async function getLastName(token) {
   return lastName;
 }
 
-// PUT - Changement du nom d'utilisateur avec le token
+
 export async function putChangeUserName(token, newUserName) {
   let userName = {
     userName: newUserName,
   };
-  // Envoie une requête PUT pour modifier le nom d'utilisateur
+ 
   let response = await fetch(`${baseUrl}user/profile`, {
     method: 'PUT',
     headers: {

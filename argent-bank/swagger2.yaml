@@ -62,6 +62,8 @@ paths:
         200:
           description: "Réponse réussie, le nom d'utilisateur a été modifié"
 
+
+
   /accounts:
     get:
       summary: "Récupère tous les comptes de l'utilisateur connecté"
@@ -143,6 +145,7 @@ paths:
       responses:
         200:
           description: "Réponse réussie, la transaction a été mise à jour"
+         
 
 definitions:
   Account:
