@@ -10,60 +10,6 @@ schemes:
 
 paths:
 
-  /user/login:
-    post:
-      summary: "Authentifie un utilisateur et retourne un token"
-      parameters:
-        - name: "user"
-          in: "body"
-          description: "Email et mot de passe de l'utilisateur"
-          required: true
-          schema:
-            type: "object"
-            properties:
-              email:
-                type: "string"
-              password:
-                type: "string"
-      responses:
-        200:
-          description: "Réponse réussie, contient le token"
-
-  /user/profile:
-    post:
-      summary: "Obtient les informations du profil de l'utilisateur"
-      parameters:
-        - name: "Authorization"
-          in: "header"
-          description: "Token d'authentification"
-          required: true
-          type: "string"
-      responses:
-        200:
-          description: "Réponse réussie, contient les informations du profil"
-    put:
-      summary: "Modifie le nom d'utilisateur"
-      parameters:
-        - name: "Authorization"
-          in: "header"
-          description: "Token d'authentification"
-          required: true
-          type: "string"
-        - name: "user"
-          in: "body"
-          description: "Nouveau nom d'utilisateur"
-          required: true
-          schema:
-            type: "object"
-            properties:
-              userName:
-                type: "string"
-      responses:
-        200:
-          description: "Réponse réussie, le nom d'utilisateur a été modifié"
-
-
-
   /accounts:
     get:
       summary: "Récupère tous les comptes de l'utilisateur connecté"
@@ -80,6 +26,13 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Account"
+        400:
+          description: Invalid Fields
+        401:
+          description: Invalid Account
+        500:
+          description: Internal Server Error
+       
 
   /accounts/{accountId}/transactions:
     get:
@@ -102,6 +55,15 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Transaction"
+        400:
+          description: Invalid Fields
+        401:
+          description: Authorisation failed
+        404:
+          description: Not found
+        500:
+          description: Internal Server Error
+       
 
   /transactions/{transactionId}:
     get:
@@ -122,6 +84,14 @@ paths:
           description: "Réponse réussie, détails de la transaction"
           schema:
             $ref: "#/definitions/TransactionDetail"
+        400:
+          description: Invalid Fields
+        401:
+          description: Authorisation failed
+        404:
+          description: Not found
+        500:
+          description: Internal Server Error
 
     put:
       summary: "Met à jour la catégorie et la note d'une transaction spécifique"
@@ -145,6 +115,14 @@ paths:
       responses:
         200:
           description: "Réponse réussie, la transaction a été mise à jour"
+        400:
+          description: Invalid Fields
+        401:
+          description: Authorisation failed
+        404:
+          description: Not found
+        500:
+          description: Internal Server Error
          
 
 definitions:
